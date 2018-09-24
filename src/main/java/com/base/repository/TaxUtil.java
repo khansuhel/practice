@@ -6,11 +6,11 @@ public class TaxUtil
 {
     public static int getTaxPercentage(TaxCategory category)
     {
-        if (category.name().equals(TaxCategory.GST))
+        if (category.equals(TaxCategory.GST))
         {
             return 15;
         }
-        else if (category.name().equals(TaxCategory.CGST))
+        else if (category.equals(TaxCategory.CGST))
         {
             return 10;
         }

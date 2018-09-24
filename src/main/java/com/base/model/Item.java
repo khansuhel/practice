@@ -1,12 +1,14 @@
 package com.base.model;
 
+import java.text.DecimalFormat;
+
 public class Item
 {
     private String id;
     private String name;
     private int quantity;
-    private int price;
-    private int dicountPercentage;
+    private double price;
+    private double discountPercentage;
     private TaxCategory taxCategory;
 
 
@@ -34,9 +36,9 @@ public class Item
     }
 
 
-    public void setDicountPercentage(int dicountPercentage)
+    public void setDiscountPercentage(double discountPercentage)
     {
-        this.dicountPercentage = dicountPercentage;
+        this.discountPercentage = discountPercentage;
     }
 
 
@@ -64,15 +66,15 @@ public class Item
     }
 
 
-    public int getPrice()
+    public double getPrice()
     {
         return price;
     }
 
 
-    public int getDicountPercentage()
+    public double getDiscountPercentage()
     {
-        return dicountPercentage;
+        return discountPercentage;
     }
 
 
@@ -82,13 +84,13 @@ public class Item
     }
 
 
-    private Item(String id, String name, int quantity, int price, int dicountPercentage, TaxCategory taxCategory)
+    private Item(String id, String name, int quantity, double price, double discountPercentage, TaxCategory taxCategory)
     {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
-        this.dicountPercentage = dicountPercentage;
+        this.discountPercentage = discountPercentage;
         this.taxCategory = taxCategory;
     }
 
@@ -104,10 +106,11 @@ public class Item
         private String id;
         private String name;
         private int quantity;
-        private int price;
-        private int dicountPercentage;
+        private double price;
+        private double dicountPercentage;
         private TaxCategory taxCategory;
 
+        static DecimalFormat decimalFormat = new DecimalFormat(".##");
 
         public ItemBuilder setId(String id)
         {
@@ -130,16 +133,16 @@ public class Item
         }
 
 
-        public ItemBuilder setPrice(int price)
+        public ItemBuilder setPrice(double price)
         {
-            this.price = price;
+            this.price = Double.parseDouble(decimalFormat.format(price));
             return this;
         }
 
 
-        public ItemBuilder setDicountPercentage(int dicountPercentage)
+        public ItemBuilder setDicountPercentage(double dicountPercentage)
         {
-            this.dicountPercentage = dicountPercentage;
+            this.dicountPercentage = Double.parseDouble(decimalFormat.format(dicountPercentage));
             return this;
         }
 
@@ -178,7 +181,7 @@ public class Item
         {
             return false;
         }
-        if (dicountPercentage != item.dicountPercentage)
+        if (discountPercentage != item.discountPercentage)
         {
             return false;
         }
@@ -193,16 +196,4 @@ public class Item
         return taxCategory == item.taxCategory;
     }
 
-
-    @Override
-    public int hashCode()
-    {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + quantity;
-        result = 31 * result + price;
-        result = 31 * result + dicountPercentage;
-        result = 31 * result + (taxCategory != null ? taxCategory.hashCode() : 0);
-        return result;
-    }
 }

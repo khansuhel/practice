@@ -1,7 +1,6 @@
 package com.base.repository;
 
 import com.base.model.Item;
-import java.util.Optional;
 
 public interface Inventory
 {
@@ -40,6 +39,6 @@ public interface Inventory
      * Returns an {@link Item}
      * @param itemId
      */
-    Optional<Item> get(String itemId);
+    Item get(String itemId);
 
 }

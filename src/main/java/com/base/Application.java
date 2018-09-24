@@ -1,8 +1,8 @@
 package com.base;
 
-import com.base.di_mappings.ApplicationMappings;
-import com.base.engines.BillGenEngine;
-import com.base.engines.Order;
+import com.base.di_mappings.MappingModule;
+import com.base.service.BillGenService;
+import com.base.model.Order;
 import com.base.model.Bill;
 import com.base.model.Item;
 import com.base.model.TaxCategory;
@@ -15,8 +15,6 @@ public class Application
 {
     @Inject
     Inventory inventory;
-
-
 
 
     public void prepareInventory()
@@ -44,16 +42,17 @@ public class Application
 
     public static void main(String[] args)
     {
-        Injector injector = Guice.createInjector(new ApplicationMappings());
+        Injector injector = Guice.createInjector(new MappingModule());
 
         Application application = injector.getInstance(Application.class);
         application.prepareInventory();
 
         Order order = injector.getInstance(Order.class);
-        order.add("Item001", 1);
+        order.add("Item001", 2);
+        order.add("Item002", 2);
 
-        BillGenEngine  billGenEngine = injector.getInstance(BillGenEngine.class);
-        Bill bill = billGenEngine.generateBill(order);
+        BillGenService billGenService = injector.getInstance(BillGenService.class);
+        Bill bill = billGenService.generateBill(order);
 
         System.out.println(bill.toString());
     }
